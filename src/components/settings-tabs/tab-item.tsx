@@ -16,8 +16,8 @@ export function TabItem({ value, title, isSelected }: TabItemProps) {
         hover:text-violet-700 data-[state=active]:text-violet-700"
     >
       <span
-        className="rounded group-focus-visible:ring-2 group-focus-visible:ring-violet-400
-          group-focus-visible:ring-offset-4"
+        className="whitespace-nowrap rounded group-focus-visible:ring-2
+          group-focus-visible:ring-violet-400 group-focus-visible:ring-offset-4"
       >
         {title}
       </span>

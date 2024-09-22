@@ -1,3 +1,6 @@
+'use client'
+
+import * as Collapsible from '@radix-ui/react-collapsible'
 import {
   BarChart,
   CheckSquare,
@@ -5,11 +8,13 @@ import {
   Flag,
   Home,
   LifeBuoy,
+  Menu,
   Search,
   SquareStack,
   Users,
 } from 'lucide-react'
 
+import { Button } from '../button'
 import { InputControl, InputPrefix, InputRoot } from '../form/input'
 import { Logo } from './logo'
 import { NavItem } from './nav-item'
@@ -18,37 +23,55 @@ import { UsedSpaceWidget } from './used-space-widget'
 
 export function Sidebar() {
   return (
-    <aside className="flex flex-col gap-6 border-r border-zinc-200 px-5 py-8">
-      <Logo />
+    <Collapsible.Root
+      className="lg:borde-r fixed left-0 right-0 top-0 z-20 flex flex-col gap-6 border-b
+        border-zinc-200 bg-white p-4 data-[state=open]:bottom-0 lg:right-auto lg:w-80
+        lg:px-5 lg:py-8 lg:data-[state=closed]:bottom-0 dark:border-zinc-800
+        dark:bg-zinc-900"
+    >
+      <div className="flex items-center justify-between">
+        <Logo />
+        <Collapsible.Trigger className="lg:hidden" asChild>
+          <Button variant="ghost">
+            <Menu className="size-6" />
+          </Button>
+        </Collapsible.Trigger>
+      </div>
 
-      <InputRoot>
-        <InputPrefix>
-          <Search className="size-5 text-zinc-500" />
-        </InputPrefix>
-        <InputControl placeholder="Search" />
-      </InputRoot>
+      <Collapsible.Content
+        forceMount
+        className="flex flex-1 flex-col gap-6 data-[state=closed]:hidden
+          lg:data-[state=closed]:flex"
+      >
+        <InputRoot>
+          <InputPrefix>
+            <Search className="size-5 text-zinc-500" />
+          </InputPrefix>
+          <InputControl placeholder="Search" />
+        </InputRoot>
 
-      <nav className="space-y-0.5">
-        <NavItem title="Home" icon={Home} />
-        <NavItem title="Dashboard" icon={BarChart} />
-        <NavItem title="Projects" icon={SquareStack} />
-        <NavItem title="Tasks" icon={CheckSquare} />
-        <NavItem title="Reporting" icon={Flag} />
-        <NavItem title="Users" icon={Users} />
-      </nav>
-
-      <div className="mt-auto flex flex-col gap-6">
         <nav className="space-y-0.5">
-          <NavItem title="Support" icon={LifeBuoy} />
-          <NavItem title="Settings" icon={Cog} />
+          <NavItem title="Home" icon={Home} />
+          <NavItem title="Dashboard" icon={BarChart} />
+          <NavItem title="Projects" icon={SquareStack} />
+          <NavItem title="Tasks" icon={CheckSquare} />
+          <NavItem title="Reporting" icon={Flag} />
+          <NavItem title="Users" icon={Users} />
         </nav>
 
-        <UsedSpaceWidget />
+        <div className="mt-auto flex flex-col gap-6">
+          <nav className="space-y-0.5">
+            <NavItem title="Support" icon={LifeBuoy} />
+            <NavItem title="Settings" icon={Cog} />
+          </nav>
 
-        <div className="h-px bg-zinc-200" />
+          <UsedSpaceWidget />
 
-        <Profile />
-      </div>
-    </aside>
+          <div className="h-px bg-zinc-200" />
+
+          <Profile />
+        </div>
+      </Collapsible.Content>
+    </Collapsible.Root>
   )
 }
